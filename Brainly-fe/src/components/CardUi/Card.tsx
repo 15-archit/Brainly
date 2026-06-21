@@ -3,7 +3,7 @@ import NotionIcon from "../icons/NotionIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import Tags from "./Tags";
 import { format } from 'date-fns'
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import TwitterIcon from "../icons/TwitterIcon";
 
@@ -18,34 +18,41 @@ interface CardProps {
 
 const Card = (props: CardProps) => {
   const navigate = useNavigate();
-  const date = format(new Date(), 'dd MMM yyyy');
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
-  let contentPreview: JSX.Element = <p className="text-gray-500">No content available</p>;
-
-
+  const date = format(new Date(), "dd MMM yyyy");
 
   const getYoutubeId = (url: string): string | null => {
     const regularFormat = url.split("v=");
     if (regularFormat.length > 1) {
-      const videoId = regularFormat[1].split("&")[0];
-      return videoId;
+      return regularFormat[1].split("&")[0];
     }
 
     const shortFormat = url.split("youtu.be/");
     if (shortFormat.length > 1) {
-      const videoId = shortFormat[1].split("?")[0];
-      return videoId;
+      return shortFormat[1].split("?")[0];
     }
 
-    return null; 
+    return null;
   };
-  
+
+  const thumbnail = useMemo(() => {
+    const videoId = getYoutubeId(props.link);
+    return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+  }, [props.link]);
+
+  let contentPreview: JSX.Element = (
+    <p className="text-gray-500">No content available</p>
+  );
+
   if (props.icon === "Youtube") {
     contentPreview = (
       <div className="flex justify-center pt-6 items-center">
         {thumbnail ? (
           <a href={props.link} target="_blank" rel="noopener noreferrer">
-            <img src={thumbnail} alt={props.title} className="w-[90%] rounded-lg ml-3" />
+            <img
+              src={thumbnail}
+              alt={props.title}
+              className="w-[90%] rounded-lg ml-3"
+            />
           </a>
         ) : (
           <p className="text-gray-500">No thumbnail available</p>
@@ -75,12 +82,6 @@ const Card = (props: CardProps) => {
   }
 
   useEffect(() => {
-    const videoId = getYoutubeId(props.link);
-    if (videoId) {
-      setThumbnail(`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`);
-    } else {
-      setThumbnail(null);
-    }
   }, [props.link]);
   
   async function deleteHandle(){

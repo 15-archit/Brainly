@@ -1,6 +1,7 @@
 import { AuthRequest } from "../middleware/authMiddleware";
 import { Response } from "express";
 import userContent from "../models/contentModel";
+import { Types } from "mongoose";
 
 export const newContent = async(req: AuthRequest,res: Response)=>{
   try{
@@ -33,53 +34,55 @@ export const newContent = async(req: AuthRequest,res: Response)=>{
 }
 
 export const content = async(req: AuthRequest, res: Response)=>{
-  try{
-    const userid = req.userID;
+  try {
+    const userid = typeof req.userID === "string" ? req.userID : undefined;
 
-    //checking userid present or not
-    if(!userid){
+    if (!userid) {
       res.status(400).json({ message: "Something wrong" });
       return;
     }
 
-    const userData = await userContent.findOne({ userId: userid });
+    const userData = await userContent.find({
+      userId: new Types.ObjectId(userid),
+    });
+
     res.status(200).json({
       message: "User data fetched successfully",
       data: userData,
     });
-    console.log(userData)
-  }catch(err){
-    console.log("Err(catch): something went wrong",err)
+  } catch (err) {
+    console.log("Err(catch): something went wrong", err);
     return;
   }
 }
 
 export const deleteContent = async(req: AuthRequest, res: Response)=>{
   try{
-    const userid = req.userID;
+    const userid = typeof req.userID === "string" ? req.userID : undefined;
     const userTitle = req.params.contentId;
-    
-    console.log("userid =>", userid)
-    console.log("contentid =>", userTitle)
 
     if (!userid || !userTitle) {
-       res.status(400).json({ message: "User ID or Content ID missing" });
-       return;
+      res.status(400).json({ message: "User ID or Content ID missing" });
+      return;
     }
 
-    const content = await userContent.findOne({ title: userTitle, userId: userid });
+    const userIdObject = new Types.ObjectId(userid);
+
+    const content = await userContent.findOne({
+      title: userTitle,
+      userId: userIdObject,
+    });
 
     if (!content) {
       res.status(404).json({ message: "Content not found or unauthorized" });
       return;
     }
 
-    await userContent.findByIdAndDelete(content);
+    await userContent.findByIdAndDelete(content._id);
 
-     res.status(200).json({ message: "Content deleted successfully" });
-     return;
-  }catch(err){
-    console.log("Err(catch): something went wrong",err)
+    res.status(200).json({ message: "Content deleted" });
+  } catch (err) {
+    console.log("Err(catch): something went wrong", err);
     return;
   }
 }
