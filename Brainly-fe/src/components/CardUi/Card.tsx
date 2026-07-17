@@ -3,7 +3,7 @@ import NotionIcon from "../icons/NotionIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import Tags from "./Tags";
 import { format } from 'date-fns'
-import { type JSX, useEffect, useState, useMemo } from "react";
+import { type JSX, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import TwitterIcon from "../icons/TwitterIcon";
 

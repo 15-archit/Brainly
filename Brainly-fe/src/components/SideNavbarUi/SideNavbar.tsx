@@ -1,7 +1,5 @@
 import AppLogo from "../icons/AppLogo";
 import NavFields from "./NavFields";
-import ShareIcon from "../icons/ShareIcon";
-import TwitterIcon from "../icons/TwitterIcon";
 import YoutubeIcon from "../icons/YoutubeIcon";
 import DocumentIcon from "../icons/DocumentIcon";
 import All from "../icons/All";
@@ -34,7 +32,7 @@ const SideNavbar = (props: SideNavbarProps)=>{
   return <>
     <div className="w-[20vw] h-screen border-r-2 inline-block">
         <div className="flex gap-2 ml-3 pt-3">
-          <AppLogo /> <span className="text-[27px] font-bold">Second Brain</span>
+          <AppLogo /> <span className="text-[27px] font-bold">Brainly</span>
         </div>
         <div className="pt-7">
           <div onClick={al}><NavFields text={"All"} startIcon={<All />} /></div>
