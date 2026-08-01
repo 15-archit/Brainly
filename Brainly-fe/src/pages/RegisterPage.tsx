@@ -46,7 +46,7 @@ const RegisterPage = ()=>{
       }
   }
 
-  async function handleSubmit2(e ) {
+  async function handleSubmit2(e) {
     e.preventDefault();
 
     const form = e.currentTarget;

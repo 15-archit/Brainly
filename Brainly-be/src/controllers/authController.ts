@@ -13,7 +13,7 @@ try{
      return;
   }
   
-  //checking is email already exist or not 
+  //checking if email already exist or not 
   const checkEmail =await user.findOne({
     email: email
   })
@@ -25,7 +25,7 @@ try{
   }
 
   //hashing password
-  const hashPassword = await bcrypt.hash(password,5);
+  const hashPassword = await bcrypt.hash(password,10);
 
   const newUser = new user({
     username:username,
@@ -40,12 +40,12 @@ try{
   return;
   }catch(err: unknown){
     if (err instanceof Error) {
-      console.log("Something wnet wrong while receving data", err.message);
+      console.log("Something went wrong while receving data", err.message);
     } else {
-      console.log("Something wnet wrong while receving data", err);
+      console.log("Something went wrong while receving data", err);
     }
     res.status(500).send({
-      message : "Something wnet wrong while receving data"
+      message : "Something went wrong while receving data"
     })
     return;
   }
