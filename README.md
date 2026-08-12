@@ -52,11 +52,11 @@ Here’s a quick peek at how the app looks:
 
 ### 🧳 **SignUp and Signin Page**
 ![SignUp and Signin Page]
-<img width="1920" height="1080" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/362d9dc9-365d-45d7-81ce-2f3471a98fe2" />
+<img width="1920" height="1080" alt="Screenshot (1)" src="https://github.com/user-attachments/assets/fca5b6eb-f109-428b-a124-08878582c904" />
 
 ### 🧠 **Home Interface**
 ![Home Interface]
-<img width="1920" height="1080" alt="Screenshot (1)" src="https://github.com/user-attachments/assets/fca5b6eb-f109-428b-a124-08878582c904" />
+<img width="1920" height="1080" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/362d9dc9-365d-45d7-81ce-2f3471a98fe2" />
 <img width="1920" height="1080" alt="Screenshot (4)" src="https://github.com/user-attachments/assets/1d062b79-f355-43bd-8178-371a7e2e05bd" />
 
 ### 🧳 **Add New Card and Share your Brain– Modal Interface**
